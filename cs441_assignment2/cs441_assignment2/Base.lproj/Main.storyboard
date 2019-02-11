@@ -22,24 +22,36 @@
                                 <rect key="frame" x="178" y="488" width="19" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="arrowup.png"/>
+                                <connections>
+                                    <action selector="doSomething:" destination="BYZ-38-t0r" eventType="touchDown" id="EU1-5U-8fW"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBb-hp-d4f">
                                 <rect key="frame" x="193" y="560" width="72" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="arrowright.png"/>
+                                <connections>
+                                    <action selector="doSomething:" destination="BYZ-38-t0r" eventType="touchDown" id="2qn-rx-ppG"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xmi-oC-g20">
                                 <rect key="frame" x="109" y="561" width="72" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="arrowleft.png"/>
+                                <connections>
+                                    <action selector="doSomething:" destination="BYZ-38-t0r" eventType="touchDown" id="Uvl-Lc-ej9"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hOH-i6-3qL">
                                 <rect key="frame" x="178" y="582" width="19" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="arrowdown.png"/>
+                                <connections>
+                                    <action selector="doSomething:" destination="BYZ-38-t0r" eventType="touchDown" id="WHe-pC-uww"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKy-7x-cnx">
-                                <rect key="frame" x="166" y="66" width="42" height="21"/>
+                                <rect key="frame" x="82" y="65" width="226" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -51,13 +63,15 @@
                     </view>
                     <connections>
                         <outlet property="down" destination="hOH-i6-3qL" id="iSV-x2-wZT"/>
-                        <outlet property="left" destination="hOH-i6-3qL" id="jgt-7H-BFJ"/>
-                        <outlet property="right" destination="hOH-i6-3qL" id="fDI-b7-iq4"/>
-                        <outlet property="up" destination="hOH-i6-3qL" id="yPx-Q0-Dyo"/>
+                        <outlet property="label" destination="RKy-7x-cnx" id="4qM-gT-jjk"/>
+                        <outlet property="left" destination="xmi-oC-g20" id="SN3-q3-88V"/>
+                        <outlet property="right" destination="XBb-hp-d4f" id="Zmi-Do-tZt"/>
+                        <outlet property="up" destination="z57-d2-VgP" id="cCg-yZ-Gn1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="53.600000000000001" y="27.436281859070466"/>
         </scene>
     </scenes>
     <resources>

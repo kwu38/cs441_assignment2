@@ -10,6 +10,7 @@
 
 @interface ViewController : UIViewController
 @property (nonatomic, strong) IBOutlet UIButton *up, *down, *left, *right;
+
 @property (nonatomic, strong) IBOutlet UILabel *label;
 
 @end

@@ -18,10 +18,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    up.tag = 0;
+    down.tag = 1;
+    left.tag = 2;
+    right.tag = 3;
 }
 -(IBAction)doSomething: (id) sender
 {
-    [label setText:@"I love Java and Android!"];
+    UIButton *button = (UIButton *)sender;
+    switch(button.tag){
+        case 0:
+            [label setText:@"up"];
+            break;
+        case 1:
+            [label setText:@"down"];
+            break;
+        case 2:
+            [label setText:@"left"];
+            break;
+        case 3:
+            [label setText:@"right"];
+            break;
+        default:
+            break;
+    }
 }
 
 @end
