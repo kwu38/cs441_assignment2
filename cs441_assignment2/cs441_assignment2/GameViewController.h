@@ -11,5 +11,7 @@
 #import <GameplayKit/GameplayKit.h>
 
 @interface GameViewController : UIViewController
+@property (nonatomic, strong) IBOutlet UIButton *button, *button2, *button3, *button4;
+@property (nonatomic, strong) IBOutlet UILabel *label;
 
 @end

@@ -10,6 +10,8 @@
 #import "GameScene.h"
 
 @implementation GameViewController
+@synthesize button, button2, button3, button4;
+@synthesize label;
 
 - (void)viewDidLoad {
     [super viewDidLoad];

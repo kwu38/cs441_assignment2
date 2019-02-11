@@ -16,6 +16,10 @@
 		235D4182220B2B7700FCB428 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 235D4181220B2B7700FCB428 /* Assets.xcassets */; };
 		235D4185220B2B7700FCB428 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 235D4183220B2B7700FCB428 /* LaunchScreen.storyboard */; };
 		235D4188220B2B7700FCB428 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 235D4187220B2B7700FCB428 /* main.m */; };
+		2396B0BB2212222300AA7DAD /* arrowup.png in Resources */ = {isa = PBXBuildFile; fileRef = 2396B0BA2212222300AA7DAD /* arrowup.png */; };
+		2396B0BF2212222C00AA7DAD /* arrowdown.png in Resources */ = {isa = PBXBuildFile; fileRef = 2396B0BC2212222C00AA7DAD /* arrowdown.png */; };
+		2396B0C02212222C00AA7DAD /* arrowleft.png in Resources */ = {isa = PBXBuildFile; fileRef = 2396B0BD2212222C00AA7DAD /* arrowleft.png */; };
+		2396B0C12212222C00AA7DAD /* arrowright.png in Resources */ = {isa = PBXBuildFile; fileRef = 2396B0BE2212222C00AA7DAD /* arrowright.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +37,10 @@
 		235D4184220B2B7700FCB428 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		235D4186220B2B7700FCB428 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		235D4187220B2B7700FCB428 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2396B0BA2212222300AA7DAD /* arrowup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrowup.png; path = ../../../../../Downloads/arrowup.png; sourceTree = "<group>"; };
+		2396B0BC2212222C00AA7DAD /* arrowdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrowdown.png; path = ../../../../../Downloads/arrowdown.png; sourceTree = "<group>"; };
+		2396B0BD2212222C00AA7DAD /* arrowleft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrowleft.png; path = ../../../../../Downloads/arrowleft.png; sourceTree = "<group>"; };
+		2396B0BE2212222C00AA7DAD /* arrowright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrowright.png; path = ../../../../../Downloads/arrowright.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +73,10 @@
 		235D4170220B2B7400FCB428 /* cs441_assignment2 */ = {
 			isa = PBXGroup;
 			children = (
+				2396B0BA2212222300AA7DAD /* arrowup.png */,
+				2396B0BC2212222C00AA7DAD /* arrowdown.png */,
+				2396B0BD2212222C00AA7DAD /* arrowleft.png */,
+				2396B0BE2212222C00AA7DAD /* arrowright.png */,
 				235D4171220B2B7400FCB428 /* AppDelegate.h */,
 				235D4172220B2B7400FCB428 /* AppDelegate.m */,
 				235D4174220B2B7400FCB428 /* GameScene.sks */,
@@ -141,8 +153,12 @@
 			files = (
 				235D4180220B2B7500FCB428 /* Main.storyboard in Resources */,
 				235D4175220B2B7400FCB428 /* GameScene.sks in Resources */,
+				2396B0BB2212222300AA7DAD /* arrowup.png in Resources */,
 				235D4182220B2B7700FCB428 /* Assets.xcassets in Resources */,
+				2396B0BF2212222C00AA7DAD /* arrowdown.png in Resources */,
 				235D4185220B2B7700FCB428 /* LaunchScreen.storyboard in Resources */,
+				2396B0C12212222C00AA7DAD /* arrowright.png in Resources */,
+				2396B0C02212222C00AA7DAD /* arrowleft.png in Resources */,
 				235D4177220B2B7400FCB428 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
