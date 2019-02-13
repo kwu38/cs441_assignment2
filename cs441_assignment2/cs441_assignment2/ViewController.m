@@ -19,6 +19,7 @@ tile5, tile6, tile7, tile8,
 tile9, tile10, tile11, tile12,
 tile13, tile14, tile15, tile16;
 NSMutableArray *firstRow, *secondRow, *thirdRow, *fourthRow, *board;
+NSUInteger table[4][4];
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,6 +63,7 @@ NSMutableArray *firstRow, *secondRow, *thirdRow, *fourthRow, *board;
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
             [board[i][j] setText:@"0"];
+            table[i][j] = 0;
         }
     }
     
@@ -79,7 +81,21 @@ NSMutableArray *firstRow, *secondRow, *thirdRow, *fourthRow, *board;
     
     [board[row][column] setText:string1];
     [board[row2][column2] setText:string2];
+    table[row][column] = [string1 integerValue];
+    table[row2][column2] = [string2 integerValue];
     
+    
+}
+
+-(void) spawnTile
+{
+    int row = arc4random_uniform(4);
+    int column = arc4random_uniform(4);
+    NSString* string1 = [self returnTwoOrFour];
+    if(table[row][column] == 0){
+        [board[row][column] setText:string1];
+        table[row][column] = [string1 integerValue];
+    }
 }
 -(NSString*) returnTwoOrFour
 {
@@ -87,6 +103,24 @@ NSMutableArray *firstRow, *secondRow, *thirdRow, *fourthRow, *board;
         if(random == 0)
             return [NSString stringWithFormat:@"%d",2];
         else return [NSString stringWithFormat:@"%d",4];
+    
+}
+
+-(BOOL) isFull
+{
+    Boolean full = true;
+    
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            if(table[i][j] != 0)
+                full = false;
+        }
+    }
+    return full;
+}
+
+-(BOOL) slideArrayLeft:(NSMutableArray*) singleRow
+{
     
 }
 
