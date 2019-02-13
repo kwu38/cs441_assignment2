@@ -14,12 +14,13 @@
 
 @implementation ViewController
 @synthesize up, down, left, right;
-@synthesize label, tile1, tile2, tile3, tile4,
+@synthesize label, scoreLabel, tile1, tile2, tile3, tile4,
 tile5, tile6, tile7, tile8,
 tile9, tile10, tile11, tile12,
 tile13, tile14, tile15, tile16;
 NSMutableArray *firstRow, *secondRow, *thirdRow, *fourthRow, *board;
 NSUInteger table[4][4];
+int score;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,7 +57,7 @@ NSUInteger table[4][4];
     [board addObject:thirdRow];
     [board addObject:fourthRow];
     
-    int counter = 1;
+   /* int counter = 1;
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
             NSString* string1 = [NSString stringWithFormat:@"%d",counter];
@@ -64,8 +65,8 @@ NSUInteger table[4][4];
             table[i][j] = counter;
             counter++;
         }
-    }
-    
+    }*/
+    int score = 0;
 }
 
 -(IBAction)intializeBoard: (id)sender
@@ -94,7 +95,8 @@ NSUInteger table[4][4];
     table[row][column] = [string1 integerValue];
     table[row2][column2] = [string2 integerValue];
     //[self testPrint];
-    
+    score = 0;
+    [scoreLabel setText:@"0"];
 }
 
 -(void) testPrint
@@ -151,11 +153,103 @@ NSUInteger table[4][4];
     return full;
 }
 
--(BOOL) slideArrayLeft:(NSMutableArray*) singleRow
+-(int) findNextPos:(NSUInteger[4]) row indexNumber:(int)index stopNumber:(int)flag displayArray:(NSMutableArray*) board
+{
+    int t;
+    if(index == 0)
+        return index;
+    for(t=index-1;;t--){
+        if(row[t] !=0){
+            if(row[t] != row[index]){
+                return t + 1;
+            }
+            return t;
+        }
+        else{
+            if(t == flag){
+                return t;
+            }
+        }
+    }
+    return index;
+    
+}
+
+-(BOOL) slideArrayLeft:(NSUInteger[4]) singleRow displayRow:(NSMutableArray*) board
 {
     Boolean success = false;
+    int t, flag = 0;
+    
+    for(int x = 0; x < 4; x++){
+        if(singleRow[x] != 0 )
+        {
+            t = [self findNextPos:(NSUInteger*)singleRow indexNumber:(int) x stopNumber:(int)flag displayArray:(NSMutableArray*) board];
+            if(t != x){
+                if(singleRow[t] == 0){
+                    singleRow[t] = singleRow[x];
+                    [board[t] setText: [NSString stringWithFormat:@"%lu",singleRow[t]]];
+                }
+                else if(singleRow[t] == singleRow[x]){
+                    singleRow[t]+= singleRow[x];
+                    [board[t] setText: [NSString stringWithFormat:@"%lu",singleRow[t]]];
+                    score += singleRow[t];
+                    flag = t + 1;
+                }
+                singleRow[x] = 0;
+                [board[x] setText: [NSString stringWithFormat:@"%d", 0]];
+                success = true;
+            }
+        }
         
+    }
     return success;
+}
+
+-(BOOL) slideWholeBoard
+{
+    Boolean success = false;
+    for(int i = 0; i < 4; i++)
+    {
+        success |= [self slideArrayLeft:table[i] displayRow:board[i]];
+    }
+    [scoreLabel setText: [NSString stringWithFormat:@"%d", score]];
+    return success;
+}
+
+-(void) slideWholeBoardLeft
+{
+    if([self slideWholeBoard])
+        [self spawnTile];
+}
+-(void) slideWholeBoardRight
+{
+    [self rotateBoard90:table];
+    [self rotateBoard90:table];
+    Boolean success = [self slideWholeBoard];
+    [self rotateBoard90:table];
+    [self rotateBoard90:table];
+    if(success)
+        [self spawnTile];
+}
+-(void) slideWholeBoardDown
+{
+    [self rotateBoard90:table];
+    [self rotateBoard90:table];
+    [self rotateBoard90:table];
+    Boolean success = [self slideWholeBoard];
+    [self rotateBoard90:table];
+    if(success)
+        [self spawnTile];
+}
+
+-(void) slideWholeBoardUp
+{
+    [self rotateBoard90:table];
+    Boolean success = [self slideWholeBoard];
+    [self rotateBoard90:table];
+    [self rotateBoard90:table];
+    [self rotateBoard90:table];if(success)
+        [self spawnTile];
 }
 // https://www.geeksforgeeks.org/inplace-rotate-square-matrix-by-90-degrees/
 -(void) rotateBoard90:(NSUInteger[4][4]) table
@@ -179,16 +273,16 @@ NSUInteger table[4][4];
     UIButton *button = (UIButton *)sender;
     switch(button.tag){
         case 0:
-            [self rotateBoard90:table];
+            [self slideWholeBoardUp];
             break;
         case 1:
-            [label setText:@"down"];
+            [self slideWholeBoardDown];
             break;
         case 2:
-            [label setText:@"left"];
+            [self slideWholeBoardLeft];
             break;
         case 3:
-            [label setText:@"right"];
+            [self slideWholeBoardRight];
             break;
         default:
             break;
