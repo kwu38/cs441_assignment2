@@ -56,6 +56,16 @@ NSUInteger table[4][4];
     [board addObject:thirdRow];
     [board addObject:fourthRow];
     
+    int counter = 1;
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            NSString* string1 = [NSString stringWithFormat:@"%d",counter];
+            [board[i][j] setText:string1];
+            table[i][j] = counter;
+            counter++;
+        }
+    }
+    
 }
 
 -(IBAction)intializeBoard: (id)sender
@@ -83,10 +93,32 @@ NSUInteger table[4][4];
     [board[row2][column2] setText:string2];
     table[row][column] = [string1 integerValue];
     table[row2][column2] = [string2 integerValue];
-    
+    //[self testPrint];
     
 }
 
+-(void) testPrint
+{
+    NSUInteger arr [4][4] = {{1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9,10, 11, 12},
+        {13, 14, 15, 16}
+    };
+    [self rotateBoard90:arr];
+    
+    NSLog(@"{");
+    for(int i = 0;i<4;i++)
+    {
+        NSLog(@"{");
+        for(int j=0;j<4;j++)
+        {
+            NSLog(@"%lu, ",arr[i][j]);
+        }
+        NSLog(@"},");
+    }
+    NSLog(@"}");
+    
+}
 -(void) spawnTile
 {
     int row = arc4random_uniform(4);
@@ -121,15 +153,33 @@ NSUInteger table[4][4];
 
 -(BOOL) slideArrayLeft:(NSMutableArray*) singleRow
 {
-    
+    Boolean success = false;
+        
+    return success;
 }
-
+// https://www.geeksforgeeks.org/inplace-rotate-square-matrix-by-90-degrees/
+-(void) rotateBoard90:(NSUInteger[4][4]) table
+{
+    for(int i = 0; i < 4/2; i++){
+        for(int j = i; j < 4-i-1; j++){
+            NSUInteger temp = table[i][j];
+            table[i][j] = table[j][4-1-i];
+            [board[i][j] setText:[NSString stringWithFormat:@"%lu",table[j][4-1-i]]];
+            table[j][4-1-i] = table[4-1-i][4-1-j];
+            [board[j][4-1-i] setText:[NSString stringWithFormat:@"%lu",table[4-1-i][4-1-j]]];
+            table[4-1-i][4-1-j] = table[4-1-j][i];
+            [board[4-1-i][4-1-j] setText:[NSString stringWithFormat:@"%lu",table[4-1-j][i]]];
+            table[4-1-j][i] = temp;
+            [board[4-1-j][i] setText:[NSString stringWithFormat:@"%lu",temp]];
+        }
+    }
+}
 -(IBAction)doSomething: (id) sender
 {
     UIButton *button = (UIButton *)sender;
     switch(button.tag){
         case 0:
-            [label setText:@"up"];
+            [self rotateBoard90:table];
             break;
         case 1:
             [label setText:@"down"];
