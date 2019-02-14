@@ -11,7 +11,7 @@
 @interface ViewController : UIViewController
 @property (nonatomic, strong) IBOutlet UIButton *up, *down, *left, *right;
 
-@property (nonatomic, strong) IBOutlet UILabel *label,
+@property (nonatomic, strong) IBOutlet UILabel *label, *scoreLabel,
 *tile1, *tile2, *tile3, *tile4,
 *tile5, *tile6, *tile7, *tile8,
 *tile9, *tile10, *tile11, *tile12,

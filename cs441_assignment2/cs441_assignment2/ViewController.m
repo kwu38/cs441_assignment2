@@ -35,7 +35,7 @@ int score;
     secondRow = [[NSMutableArray alloc] init];
     thirdRow = [[NSMutableArray alloc] init];
     fourthRow = [[NSMutableArray alloc] init];
-
+    
     [firstRow addObject:tile1];
     [firstRow addObject:tile2];
     [firstRow addObject:tile3];
@@ -56,7 +56,14 @@ int score;
     [board addObject:secondRow];
     [board addObject:thirdRow];
     [board addObject:fourthRow];
-    
+    score = 0;
+    [scoreLabel setText:@"0"];
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            [board[i][j] setText:@"0"];
+            table[i][j] = 0;
+        }
+    }
    /* int counter = 1;
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
@@ -66,7 +73,6 @@ int score;
             counter++;
         }
     }*/
-    int score = 0;
 }
 
 -(IBAction)intializeBoard: (id)sender
@@ -77,7 +83,6 @@ int score;
             table[i][j] = 0;
         }
     }
-    
     int row = arc4random_uniform(4);
     int column = arc4random_uniform(4);
     int row2 = arc4random_uniform(4);
@@ -97,6 +102,7 @@ int score;
     //[self testPrint];
     score = 0;
     [scoreLabel setText:@"0"];
+    [self changeColors];
 }
 
 -(void) testPrint
@@ -126,10 +132,17 @@ int score;
     int row = arc4random_uniform(4);
     int column = arc4random_uniform(4);
     NSString* string1 = [self returnTwoOrFour];
-    if(table[row][column] == 0){
-        [board[row][column] setText:string1];
-        table[row][column] = [string1 integerValue];
+    if(table[row][column] != 0){
+    while(true){
+        row = arc4random_uniform(4);
+        column = arc4random_uniform(4);
+        if(table[row][column] == 0)
+            break;
+        }
     }
+    [board[row][column] setText:string1];
+    table[row][column] = [string1 integerValue];
+    
 }
 -(NSString*) returnTwoOrFour
 {
@@ -153,6 +166,78 @@ int score;
     return full;
 }
 
+-(void) endGame
+{
+    Boolean hasPair = [self stillHasPair];
+    if(!hasPair){
+        [self rotateBoard90:table];
+        hasPair = [self stillHasPair];
+        if(!hasPair){
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"GAME OVER!"
+                                                                           message:@"Better luck next time."
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {}];
+            
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            [self viewDidLoad];
+        }
+        else{
+            [self rotateBoard90:table];
+            [self rotateBoard90:table];
+            [self rotateBoard90:table];
+        }
+    }
+    
+}
+-(void)changeColors
+{
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++)
+        {
+            switch(table[i][j]){
+                case 0:
+                    ((UILabel* )board[i][j]).backgroundColor = [UIColor whiteColor];
+                    break;
+                case 2:
+                    ((UILabel* )board[i][j]).backgroundColor = [UIColor greenColor];
+                    break;
+                case 4:
+                    ((UILabel* )board[i][j]).backgroundColor = [UIColor blueColor];
+                    break;
+                case 8:
+                    ((UILabel* )board[i][j]).backgroundColor = [UIColor yellowColor];
+                    break;
+                case 16:
+                    ((UILabel* )board[i][j]).backgroundColor = [UIColor magentaColor];
+                    break;
+                case 32:
+                    ((UILabel* )board[i][j]).backgroundColor = [UIColor orangeColor];
+                    break;
+                case 64:
+                    ((UILabel* )board[i][j]).backgroundColor = [UIColor purpleColor];
+                    break;
+                case 128:
+                    ((UILabel* )board[i][j]).backgroundColor = [UIColor cyanColor];
+                    break;
+                case 256:
+                    ((UILabel* )board[i][j]).backgroundColor = [UIColor brownColor];
+                    break;
+                case 512:
+                    ((UILabel* )board[i][j]).backgroundColor = [UIColor darkGrayColor];
+                    break;
+                case 1024:
+                    ((UILabel* )board[i][j]).backgroundColor = [UIColor lightGrayColor];
+                    break;
+                case 2048:
+                    ((UILabel* )board[i][j]).backgroundColor = [UIColor redColor];
+                    break;
+            }
+        }
+    }
+}
 -(int) findNextPos:(NSUInteger[4]) row indexNumber:(int)index stopNumber:(int)flag displayArray:(NSMutableArray*) board
 {
     int t;
@@ -218,8 +303,11 @@ int score;
 
 -(void) slideWholeBoardLeft
 {
-    if([self slideWholeBoard])
+    Boolean success = [self slideWholeBoard];
+    if(success)
         [self spawnTile];
+    [self endGame];
+    [self changeColors];
 }
 -(void) slideWholeBoardRight
 {
@@ -230,7 +318,11 @@ int score;
     [self rotateBoard90:table];
     if(success)
         [self spawnTile];
+    [self endGame];
+    [self changeColors];
+    
 }
+
 -(void) slideWholeBoardDown
 {
     [self rotateBoard90:table];
@@ -240,6 +332,8 @@ int score;
     [self rotateBoard90:table];
     if(success)
         [self spawnTile];
+    [self endGame];
+    [self changeColors];
 }
 
 -(void) slideWholeBoardUp
@@ -248,8 +342,12 @@ int score;
     Boolean success = [self slideWholeBoard];
     [self rotateBoard90:table];
     [self rotateBoard90:table];
-    [self rotateBoard90:table];if(success)
+    [self rotateBoard90:table];
+    if(success)
         [self spawnTile];
+    [self endGame];
+    [self changeColors];
+   
 }
 // https://www.geeksforgeeks.org/inplace-rotate-square-matrix-by-90-degrees/
 -(void) rotateBoard90:(NSUInteger[4][4]) table
@@ -267,6 +365,18 @@ int score;
             [board[4-1-j][i] setText:[NSString stringWithFormat:@"%lu",temp]];
         }
     }
+}
+
+-(BOOL) stillHasPair
+{
+    Boolean has = false;
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 3; j++){
+            if(table[i][j] == table[i][j+1])
+                return true;
+        }
+    }
+    return has;
 }
 -(IBAction)doSomething: (id) sender
 {
